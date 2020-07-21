@@ -1,0 +1,130 @@
+{{ define "admin/article/index.html" }}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {{ template "header" }}
+        <link rel="stylesheet" href="/statics/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        {{ template "nav_header" }}
+        <!-- Main Sidebar Container -->
+        {{ template "nav" }}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="form-inline" id="role-form">
+                        <div class="form-group">
+                            <label>标题：</label>
+                            <input type="text" name="title" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button id="search" class="btn btn-primary">搜索</button>
+                            <a href="/admin/article/add" class="btn btn-success">新增</a>
+                        </div>
+                    </div>
+
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="myDatatables" class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>title</th>
+                                            <th>status</th>
+                                            <th>created_at</th>
+                                            <th>updated_at</th>
+                                            <th>opt</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>title</th>
+                                            <th>status</th>
+                                            <th>created_at</th>
+                                            <th>updated_at</th>
+                                            <th>opt</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+
+
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        {{ template "copy_right" }}
+    </div>
+    <!-- ./wrapper -->
+    {{ template "footer" }}
+    <script src="/statics/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/statics/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        var oTable = $('#myDatatables').DataTable({
+            "lengthMenu": [10, 25, 50, 75, 100],
+            "processing": true,
+            "searching": false,
+            "serverSide": true,
+            "ajax": {
+                "url": "/admin/article/articleJson",
+                "type": 'POST',
+                "data": function (param) {
+                    param.name = $("input[title='title']").val();
+                }
+            }
+        });
+
+        $("#search").click(function () {
+            oTable.ajax.reload();
+        });
+
+        function del(id) {
+            $.ajax({
+                type: "POST",
+                url: "del",
+                data: {id: id},
+                async: false,
+                error: function (request) {
+                    alert('网络错误')
+                    return;
+                },
+                success: function (json) {
+                    if (json.code == 0) {
+                        window.location.replace(json.url);
+                    } else {
+                        alert(json.msg)
+                    }
+                }
+            });
+        }
+    </script>
+    </body>
+    </html>
+
+{{ end }}
+
+

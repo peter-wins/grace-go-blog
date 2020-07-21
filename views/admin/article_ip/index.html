@@ -1,0 +1,105 @@
+{{ define "admin/article_ip/index.html" }}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {{ template "header" }}
+        <link rel="stylesheet" href="/statics/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        {{ template "nav_header" }}
+        <!-- Main Sidebar Container -->
+        {{ template "nav" }}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="form-inline" id="role-form">
+                        <div class="form-group">
+                            <label>ip：</label>
+                            <input type="text" name="ip" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <button id="search" class="btn btn-primary">搜索</button>
+                        </div>
+                    </div>
+
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <table id="myDatatables" class="table table-bordered table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Ip</th>
+                                            <th>ArticleId</th>
+                                            <th>created_at</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>Ip</th>
+                                            <th>ArticleId</th>
+                                            <th>created_at</th>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+
+
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        {{ template "copy_right" }}
+    </div>
+    <!-- ./wrapper -->
+    {{ template "footer" }}
+    <script src="/statics/admin/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/statics/admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript">
+        var oTable = $('#myDatatables').DataTable({
+            "lengthMenu": [10, 25, 50, 75, 100],
+            "processing": true,
+            "searching": false,
+            "serverSide": true,
+            "ajax": {
+                "url": "/admin/article_ip/acticleIpJson",
+                "type": 'POST',
+                "data": function (param) {
+                    param.ip = $("input[name='ip']").val();
+                }
+            }
+        });
+
+        $("#search").click(function () {
+            oTable.ajax.reload();
+        });
+    </script>
+    </body>
+    </html>
+
+{{ end }}
+
+

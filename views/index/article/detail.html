@@ -1,0 +1,25 @@
+{{ define "index/article/detail.html" }}
+    {{template  "common/index_header" .}}
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-9">
+                <h4>{{.article.Title}}</h4>
+                <div class="article_detail">
+                </div>
+            </div>
+            {{template  "common/index_right_nav" .}}
+        </div>
+    </div>
+    {{template  "common/index_footer" .}}
+    <script src="http://cdn.bootcss.com/pagedown/1.0/Markdown.Converter.js"></script>
+    <script type="text/javascript">
+        var content = "{{.article.Content}}";
+        var converter = new Markdown.Converter();
+        var html = converter.makeHtml(content);   //转换
+        $('.article_detail').html(html);   //显示到页面
+
+    </script>
+{{ end }}
+
+
+

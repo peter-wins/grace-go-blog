@@ -1,0 +1,103 @@
+{{ define "admin/tags/edit.html" }}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {{ template "header" }}
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        {{ template "nav_header" }}
+        <!-- Main Sidebar Container -->
+        {{ template "nav" }}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <a href="/admin/tags/index" class="btn btn-success">返回</a>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-6">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">添加标签</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form role="form" id="myForm" action="/admin/tags/updateData">
+                                    <div class="card-body">
+                                        <input name="id" value="{{.data.Id}}" type="hidden">
+                                        <div class="form-group">
+                                            <label >名称</label>
+                                            <input type="text" name="name"  value="{{.data.Name}}"  class="form-control" >
+                                        </div>
+                                        <div class="form-group">
+                                            <label>状态</label>
+                                            <select class="form-control" name="status">
+                                                {{range $k,$v:=.tagsStatus}}
+                                                    {{if eq $.data.Status $k}}
+                                                    <option value="{{$k}}" selected>{{$v}}</option>
+                                                    {{else}}
+                                                    <option value="{{$k}}">{{$v}}</option>
+                                                    {{end}}
+                                                {{end}}
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="card-footer">
+                                        <button type="button" id="myButton" class="btn btn-primary">保存</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.card -->
+
+                        </div>
+                        <!--/.col (left) -->
+
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        {{ template "copy_right" }}
+    </div>
+    <!-- ./wrapper -->
+    {{ template "footer" }}
+    <script type="text/javascript">
+        $('#myButton').click(function () {
+            $.ajax({
+                type: "POST",
+                url: $('#myForm').attr("action"),
+                data: $('#myForm').serialize(),
+                async: false,
+                error: function (request) {
+                    alert('网络错误')
+                    return;
+                },
+                success: function (json) {
+                    if (json.code == 1) {
+                        window.location.replace(json.url);
+                    } else {
+                        alert(json.msg)
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+    </body>
+    </html>
+
+{{ end }}
+
+

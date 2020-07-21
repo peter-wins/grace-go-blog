@@ -1,0 +1,100 @@
+{{ define "admin/tags/add.html" }}
+    <!DOCTYPE html>
+    <html>
+    <head>
+        {{ template "header" }}
+    </head>
+    <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+        {{ template "nav_header" }}
+        <!-- Main Sidebar Container -->
+        {{ template "nav" }}
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="form-inline" id="role-form">
+                        <a href="/admin/tags/index" class="btn btn-success">返回</a>
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- left column -->
+                        <div class="col-md-6">
+                            <!-- general form elements -->
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">添加标签</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <!-- form start -->
+                                <form role="form" id="myForm" action="/admin/tags/updateData">
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label>名称</label>
+                                            <input type="text" name="name" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>状态</label>
+                                            <select class="form-control" name="status">
+                                                {{range $k,$v := .tagsStatus}}
+                                                <option value="{{$k}}">{{$v}}</option>
+                                                {{end}}
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.card-body -->
+                                    <div class="card-footer">
+                                        <button type="button" id="myButton" class="btn btn-primary">保存</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.card -->
+
+                        </div>
+                        <!--/.col (left) -->
+
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        {{ template "copy_right" }}
+    </div>
+    <!-- ./wrapper -->
+    {{ template "footer" }}
+    <script type="text/javascript">
+        $('#myButton').click(function () {
+            $.ajax({
+                type: "POST",
+                url: $('#myForm').attr("action"),
+                data: $('#myForm').serialize(),
+                async: false,
+                error: function (request) {
+                    alert('网络错误')
+                    return;
+                },
+                success: function (json) {
+                    if (json.code == 1) {
+                        window.location.replace(json.url);
+                    } else {
+                        alert(json.msg)
+                    }
+                }
+            });
+            return false;
+        });
+    </script>
+    </body>
+    </html>
+
+{{ end }}
+
+

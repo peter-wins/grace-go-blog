@@ -1,0 +1,15 @@
+body {  min-height: 2000px;  padding-top: 80px;padding-bottom: 80px;  }
+.logo_image img{display: block;float: left}
+.logo_image img{height: 50px;}
+.logo_text{margin-top: 14px;margin-left:5px;display: block;float: left}
+@media (max-width: 330px) {
+    .logo_text{font-size: 18px;margin-top: 16px;}
+}
+#category-jumbotron{padding-left: 25px;padding-bottom:25px;padding-top: 1px;}
+#category-jumbotron a{color: #34495e}
+#category-jumbotron p{margin: 0px;}
+#category-jumbotron h5{border-bottom: 1px solid #34495e;padding-bottom: 12px;margin-bottom: 10px;}
+
+.iamzcr-jumbotron{padding-bottom:25px;padding-top: 1px;}
+.iamzcr-jumbotron p{font-size: 18px;}
+.footer-p{padding-top: 12px;font-size: 18px;}

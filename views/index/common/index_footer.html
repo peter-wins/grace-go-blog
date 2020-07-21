@@ -1,0 +1,30 @@
+{{ define "common/index_footer" }}
+    <!-- Static navbar -->
+    <div class="navbar navbar-default navbar-fixed-bottom">
+        <div class="container">
+            <p class="footer-p"><span>© CopyRight 2002-2020, IAMZCR.COM, Inc.All Rights Reserved.</span><span
+                        style="float: right">ICP备案：粤ICP备20040419号-1</span></p>
+        </div>
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="/statics/index/flat_ui/js/vendor/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/statics/index/flat_ui/js/flat-ui.min.js"></script>
+
+    <script src="/statics/index/js/application.js"></script>
+    <script type="text/javascript">
+        //键盘点击登录
+        $('#search').bind('keydown', function (event) {
+            var event = window.event || arguments.callee.caller.arguments[0];
+            if (event.keyCode == 13){
+                window.location.href = "/index/article/search?s=" + $(this).val();
+            }
+        });
+
+
+    </script>
+    </body>
+    </html>
+{{ end }}

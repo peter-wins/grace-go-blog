@@ -1,0 +1,28 @@
+{{ define "common/index_right_nav" }}
+<div class="col-xs-3">
+
+    <div style="background:#ffffff; border:1px solid #1abc9c;margin-bottom: 18px;padding: 5px 16px 5px;border-radius:6px">
+        <input id="search" class="todo-search-field"  placeholder="Search" />
+    </div>
+
+    <div class="list-group">
+                    <span href="#" class="list-group-item  active"
+                          style="background-color: #1abc9c;border-color:#1abc9c">
+                       系列分类
+                    </span>
+        {{range $k,$v := .categoryLefts}}
+            <a href="/index/category?id={{$k}}" class="list-group-item list-group-item-primary ">{{$v}}</a>
+        {{end}}
+    </div>
+    <div class="list-group">
+                        <span href="#" class="list-group-item  active" style="background-color: #1abc9c;border-color:#1abc9c">
+                            标签
+                        </span>
+        <div style="text-align: center">
+            {{range $k,$v := .tags}}
+                <a href="/index/tags?id={{$k}}">{{$v}}</a>
+            {{end}}
+        </div>
+    </div>
+</div>
+{{ end }}

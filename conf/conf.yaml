@@ -1,0 +1,19 @@
+#版本
+v: "1.0"
+
+#项目名称
+web : iamzcr
+
+#token
+session:
+  key: session_key
+
+#MySQL配置
+mysql:
+  username: mysql
+  password:  pwd
+  host: 127.0.0.1
+  port: 2206
+  dbname: iamzcr
+
+

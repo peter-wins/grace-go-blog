@@ -1,0 +1,47 @@
+{{ define "common/index_header" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>一个PHP程序猿</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/statics/index/flat_ui/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Loading Flat UI -->
+    <link href="/statics/index/flat_ui/css/flat-ui.css" rel="stylesheet">
+    <link href="/statics/index/css/style.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="/statics/index/flat_ui/img/favicon.ico">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!-- Static navbar -->
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <span class="logo_image"> <img src="/statics/index/img/logo.png"/></span>
+                <span class="logo_text">一个PHP程序猿</span>
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {{range $k,$v := .categoryTops}}
+                    <li><a href="/index/category?id={{$k}}">{{$v}}</a></li>
+                {{end}}
+
+            </ul>
+        </div><!--/.nav-collapse -->
+
+    </div>
+</div>
+{{ end }}
